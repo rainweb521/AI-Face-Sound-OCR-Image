@@ -17,6 +17,7 @@ $option = array(
 //var_dump($result);
 //echo $result['result'][0]['beauty'];
 $url='http://www.jb51.net/';
-$html = $function->file_get_contents($url);
+$html = $function->sound();
+var_dump($html);
 //echo $html;
 ?>

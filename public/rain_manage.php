@@ -15,7 +15,15 @@
 
     <link rel="stylesheet" type="text/css" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css">
-
+    <style>
+        body {
+            font-size: 12px;
+            margin: 0px;
+            text-align:center;
+            vertical-align:middle;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 <body>
 
@@ -48,8 +56,15 @@
             <?php if ($line['state']==1){?>
                 <td><img src="<?php echo $line['image1'];?>" width="40%" height="20%"></td>
                 <td><img src="<?php echo $line['image2'];?>" width="40%" height="20%"></td>
+            <?php }elseif($line['state']==3){?>
+                <td><textarea rows="3" cols="30"><?php echo $line['image1'];?></textarea></td>
+                <td>
+                    <audio controls="controls">
+                        <source src="<?php echo $line['image2'];?>" type="audio/mpeg">
+                        您的浏览器不支持音频元素。
+                    </audio>
+                </td>
             <?php }else{?>
-
                 <td><textarea rows="3" cols="30"><?php echo $line['image1'];?></textarea></td>
                 <td><textarea rows="3" cols="30"><?php echo $line['image2'];?></textarea></td>
             <?php }?>

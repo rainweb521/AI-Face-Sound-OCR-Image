@@ -9,11 +9,12 @@
             <li class="has-dropdown gallery" data-content="about">
                 <a href="#0">人脸识别</a>
             </li>
-
+            <li class="has-dropdown gallery" data-content="about2">
+                <a href="#0">语音识别</a>
+            </li>
             <li class="has-dropdown links" data-content="pricing">
                 <a href="#0">文字识别</a>
             </li>
-
             <li class="has-dropdown button" data-content="contact">
                 <a href="#0">图像识别</a>
             </li>
@@ -48,6 +49,20 @@
                     </div>
                 </li>
 
+                <li id="about2" class="dropdown links">
+                    <a href="#0" class="label">About2</a>
+
+                    <div class="content">
+                        <ul>
+                            <li>
+                                <a href="sound.php">
+                                    <em style="font-size: 20px;color: #000000;">语音合成</em><br><br>
+                                    <span style="color: #393D49;font-size: 10px;">将文字转换成语音输出，并且可以支持语速、音调、音量、音频码率设置</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li id="pricing" class="dropdown links">
                     <a href="#0" class="label">About</a>
 

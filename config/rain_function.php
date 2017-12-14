@@ -9,6 +9,7 @@ require_once 'AipFace.php';
 require_once 'AipOcr.php';
 require_once 'AipImageClassify.php';
 require_once 'AipNlp.php';
+require_once 'AipSpeech.php';
 require_once 'database.php';
 class rain_function{
     // 人脸识别的 ID ，Key
@@ -166,6 +167,34 @@ class rain_function{
         $database = new database();
         $database->ai_InsertInfo($data);
         return $result;
+    }
+    /**
+     *  语音合成与识别处理
+     */
+    function sound($text,$per,$spd,$pit){
+        $client = new AipSpeech($this->Sound_APP_ID, $this->Sound_API_KEY, $this->Sound_SECRET_KEY);
+        // 调用语音合成接口
+        $result = $client->synthesis($text, 'zh', 1, array(
+            'vol' => 5,'per' => $per,'spd' => $spd,'pit' => $pit,
+        ));
+
+        // 识别正确返回语音二进制 错误则返回json 参照下面错误码
+        //采用时间戳命名
+        $fname = rand() . time();
+        $file = './public/sound/'.$fname.'.mp3';
+        if(!is_array($result)){
+            file_put_contents($file, $result);
+        }
+        $log = '语音合成';
+
+        $data['ip'] = $_SERVER['REMOTE_ADDR'];
+        $data['image1'] = $text;
+        $data['image2'] = '.'.$file;
+        $data['status'] = $log;
+        $data['state'] = 3;
+        $database = new database();
+        $database->ai_InsertInfo($data);
+        return $file;
         // 如果图片是url 调用示例如下
 //        $result = $client->basicGeneral('http://www.xxxxxx.com/img.jpg');
     }
