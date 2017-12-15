@@ -3,7 +3,7 @@
 
     <nav class="main-nav">
         <ul>
-            <li class="has-dropdown gallery" data-content="">
+            <li class="has-dropdown gallery" data-content="about3">
                 <a href="index.php">首页</a>
             </li>
             <li class="has-dropdown gallery" data-content="about">
@@ -27,8 +27,11 @@
     <div class="morph-dropdown-wrapper" style="z-index:2">
         <div class="dropdown-list">
             <ul>
+                <li id="about3" class="dropdown links">
+                    <a href="index.php" class="label">首页</a>
+                </li>
                 <li id="about" class="dropdown links">
-                    <a href="#0" class="label">About</a>
+                    <a href="#0" class="label">人脸识别</a>
 
                     <div class="content">
                         <ul>
@@ -50,7 +53,7 @@
                 </li>
 
                 <li id="about2" class="dropdown links">
-                    <a href="#0" class="label">About2</a>
+                    <a href="#0" class="label">语音技术</a>
 
                     <div class="content">
                         <ul>
@@ -64,7 +67,7 @@
                     </div>
                 </li>
                 <li id="pricing" class="dropdown links">
-                    <a href="#0" class="label">About</a>
+                    <a href="#0" class="label">文字识别</a>
 
                     <div class="content">
                         <ul>
@@ -78,7 +81,7 @@
                     </div>
                 </li>
                 <li id="contact" class="dropdown links">
-                    <a href="#0" class="label">About</a>
+                    <a href="#0" class="label">图像识别</a>
 
                     <div class="content">
                         <ul>
@@ -111,7 +114,7 @@
                     </div>
                 </li>
                 <li id="contact2" class="dropdown links">
-                    <a href="#0" class="label">About</a>
+                    <a href="#0" class="label">自然语言处理</a>
 
                     <div class="content">
                         <ul>

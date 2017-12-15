@@ -26,9 +26,18 @@
     </style>
 </head>
 <body>
-
+<?php
+if(empty($_GET['rain_key'])){
+    echo "<script>location.href='../index.php';</script>";
+}else{
+    $rain_key = $_GET['rain_key'];
+    if ($rain_key!='0zhBZwsuWM706HJQ6x3Y'){
+        echo "<script>location.href='../index.php';</script>";
+    }
+}
+?>
 <main class="cd-main-content">
-    <h1 align="center" style="margin-top: -1%;margin-bottom: 2%;font-size: 30px;">后台访问记录</h1>
+    <a href="rain_manage.php?rain_key=<?php echo $rain_key;?>"><h1 align="center" style="margin-top: -1%;margin-bottom: 2%;font-size: 30px;">后台访问记录</h1></a>
     <div style="width:80%;margin: auto;">
     <table class="am-table am-table-bordered am-table-radius am-table-striped">
         <thead>
@@ -45,8 +54,13 @@
         <?php
         require ('../config/database.php');
         $databse = new database();
+        if (!empty($_GET['type'])){
+            $type = $_GET['type'];
+            $id = $_GET['id'];
+            $databse->delete($id);
+        }
         $list = $databse->ListInfo();
-        while($line = mysqli_fetch_array($list)){
+        while($line = (mysqli_fetch_array($list))){
         //var_dump($line[0]);echo "<br>";
         ?>
         <tr>
@@ -54,8 +68,8 @@
             <td><?php echo $line['add_time'];?></td>
             <td><?php echo $line['status'];?></td>
             <?php if ($line['state']==1){?>
-                <td><img src="<?php echo $line['image1'];?>" width="40%" height="20%"></td>
-                <td><img src="<?php echo $line['image2'];?>" width="40%" height="20%"></td>
+                <td><img src="<?php echo $line['image1'];?>" width="100px" height="50px"></td>
+                <td><img src="<?php echo $line['image2'];?>" width="100px" height="50px"></td>
             <?php }elseif($line['state']==3){?>
                 <td><textarea rows="3" cols="30"><?php echo $line['image1'];?></textarea></td>
                 <td>
@@ -68,7 +82,7 @@
                 <td><textarea rows="3" cols="30"><?php echo $line['image1'];?></textarea></td>
                 <td><textarea rows="3" cols="30"><?php echo $line['image2'];?></textarea></td>
             <?php }?>
-            <td><button type="button" class="am-btn am-btn-danger am-btn-xs">删除</button></td>
+            <td><button type="button" onclick="location.href='rain_manage.php?rain_key=<?php echo $rain_key;?>&type=delete&id=<?php echo $line["id"];?>';" class="am-btn am-btn-danger am-btn-xs">删除</button></td>
         </tr>
         <?php }?>
         </tbody>

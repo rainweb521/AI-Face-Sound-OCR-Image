@@ -96,7 +96,7 @@ class rain_function{
         $log = '通用文字识别';
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = '.'.$image_src;
-        $data['image2'] = '';
+        $data['image2'] = '.';
         $data['status'] = $log;
         $data['state'] = 1;
         $database = new database();
@@ -129,7 +129,7 @@ class rain_function{
         }
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = '.'.$image_src;
-        $data['image2'] = '';
+        $data['image2'] = '.';
         $data['status'] = $log;
         $data['state'] = 1;
         $database = new database();

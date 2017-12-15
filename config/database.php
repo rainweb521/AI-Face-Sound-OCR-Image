@@ -13,19 +13,17 @@ class database{
 //        mysql_select_db("leave", $con); //要连接的数据库名
         return $con;
     }
-    public function student_ListInfo($c_name){
-
-        $c_id = $this->get_c_id($c_name);
+    public function get_Info($id){
         $con = $this->conn_mysql();  //连接mysql
-        $result = mysqli_query($con,'SELECT * FROM student WHERE s_c_id="'.$c_id.'"');
+        $result = mysqli_query($con,'SELECT * FROM rain_ai WHERE id="'.$id.'"');
         $this->close_mysql($con);   //释放连接
-        return $result;
+        return mysqli_fetch_array($result);
     }
     public function ListInfo(){
         $con = $this->conn_mysql();  //连接mysql
-        $result = mysqli_query($con,'SELECT * FROM rain_ai ');
+        $result = mysqli_query($con,'SELECT * FROM rain_ai order by id desc');
         $this->close_mysql($con);   //释放连接
-        return $result;
+        return ($result);
     }
     private function ip_database_select($ip){
         $con = $this->conn_mysql();  //连接mysql
@@ -47,7 +45,20 @@ class database{
 //        var_dump(mysql_error());die();
         $this->close_mysql($con);   //释放连接
     }
-
+    public function delete($s_id){
+        $data = $this->get_Info($s_id);
+        if ($data['state']!=2){
+            if (($data['image1']!='.')&&($data['state']==1)){
+                unlink($data['image1']);
+            }
+            if ($data['image2']!='.'){
+                unlink($data['image2']);
+            }
+        }
+        $con = $this->conn_mysql();  //连接mysql
+        $result = mysqli_query($con,'DELETE FROM rain_ai WHERE id="'.$s_id.'"');
+        $this->close_mysql($con);   //释放连接
+    }
     public function close_mysql($con){  //释放连接的函数
         mysqli_close($con);
     }
