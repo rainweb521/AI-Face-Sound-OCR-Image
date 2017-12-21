@@ -39,7 +39,8 @@
             $type = 1;
         }
         if ($type==2){echo "词法分析";}else if ($type==6){echo "评论观点抽取";}else if ($type==7){echo "中文DNN语言模型";} else{echo "情感倾向分析";}
-        ?>功能<br><span style="font-size: 17px;">
+        ?>功能
+        <br><span style="font-size: 17px;">
             <?php
             if ($type==2){echo "提供分词、词性标注、命名实体识别三大功能，支撑自然语言的准确理解";}
             else if ($type==6){echo "自动分析用户评论，输出评论观点与情感极性 ";}

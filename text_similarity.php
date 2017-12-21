@@ -39,7 +39,8 @@
             $type = 3;
         }
         if ($type==4){echo "词义相似度";} else{echo "短文本相似度";}
-        ?>功能<br><span style="font-size: 17px;">
+        ?>功能
+        <br><span style="font-size: 17px;">
             <?php
             if ($type==4){echo "依托全网海量优质数据和深度神经网络技术，通过词语向量化来计算两个词之间的相似度";}
             else{echo "输入两段中文短文本，即可输出文本间的语义相似度。帮助快速实现推荐、检索、排序等应用";}
