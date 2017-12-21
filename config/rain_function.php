@@ -140,6 +140,7 @@ class rain_function{
     }
 
     function str_handling($text){
+        $text = str_replace(" ", "", $text);
         $text = str_replace("\n", "", $text);
         $text = str_replace("\r", "", $text);
         $text = htmlspecialchars( $text);
@@ -150,11 +151,36 @@ class rain_function{
      */
     function language($text1, $text2,$type){
         $client = new AipNlp($this->Text_APP_ID, $this->Text_API_KEY, $this->Text_SECRET_KEY);
-        if ($type==1){
+        if ($type==3){
             // 调用短文本相似度对比接口
             $result = $client->simnet($text1,$text2);
             $log = '短文本相似度对比';
+        }else if ($type==4){
+            // 调用 词义相似度对比接口
+            $result = $client->wordSimEmbedding($text1,$text2);
+            $log = '词义相似度对比';
+        }else if ($type==2){
+            // 调用 词法分析接口
+            $result = $client->lexer($text1);
+            $log = '词法分析';
+        }else if ($type==7){
+            // 调用中文DNN语言模型接口
+            $result = $client->dnnlm($text1);
+            $log = '中文DNN语言模型';
+        }else if ($type==6){
+            /** 因为参数有13个，所以需要一一遍历出来 $option */
+            for($i=1;$i<=13;$i++){
+                // 定义参数变量
+                $option = array('type' => $i); // 汽车分类
+                // 调用 评论观点抽取接口
+                $result = $client->commentTag($text1,$option);
+                if (empty($result['error_code'])){
+                    break;
+                }
+            }
+            $log = '评论观点抽取';
         }else{
+//            type = 1
             // 调用情感倾向分析接口
             $result = $client->sentimentClassify($text1);
             $log = '情感倾向分析';

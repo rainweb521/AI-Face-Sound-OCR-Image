@@ -6,6 +6,16 @@
  * Time: 10:16
  */
 class database{
+    private $face1 = 1000;
+    private $face2 = 1000;
+    private $sound = 1000;
+    private $ocr = 400;
+    private $image1 = 400;
+    private $image2 = 400;
+    private $image3 = 400;
+    private $image4 = 400;
+    private $text1 = 2000;
+    private $text2 = 2000;
     public function conn_mysql(){   //连接数据库函数
         $con = mysqli_connect("localhost","root","root","test");//数据库用户名和密码
         mysqli_query($con,"set names utf8;");

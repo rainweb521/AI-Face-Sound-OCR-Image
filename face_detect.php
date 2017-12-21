@@ -31,7 +31,9 @@
 <!--</div>-->
 <?php require ('header.php');?>
 <main class="cd-main-content">
-    <h1 align="center" style="margin-top: 3%;margin-bottom: -2%;font-size: 30px;">人脸识别---人脸检测功能</h1>
+    <h1 align="center" style="margin-top: 3%;margin-bottom: -4%;font-size: 30px;">人脸识别---人脸检测功能<br>
+    <span style="font-size: 20px;">（今日剩余使用次数0）</span>
+    </h1>
     <div align="center" style="margin-top: 5%;">
         <form enctype="multipart/form-data" method="post" action="face_detect.php" id="myform">
             <div class="am-form-group am-form-file">

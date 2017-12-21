@@ -31,19 +31,28 @@
 <!--</div>-->
 <?php require ('header.php');?>
 <main class="cd-main-content">
-    <h1 align="center" style="margin-top: 3%;margin-bottom: -5%;font-size: 30px;">自然语言处理---短文本相似度功能</h1>
-    <div align="center" style="margin-top: 5%;">
+    <h1 align="center" style="margin-top: 3%;margin-bottom: -5%;font-size: 30px;">自然语言处理---
+        <?php
+        if (!empty($_GET['type'])){
+            $type = $_GET['type'];
+        }else{
+            $type = 3;
+        }
+        if ($type==4){echo "词义相似度";} else{echo "短文本相似度";}
+        ?>功能<br><span style="font-size: 17px;">
+            <?php
+            if ($type==4){echo "依托全网海量优质数据和深度神经网络技术，通过词语向量化来计算两个词之间的相似度";}
+            else{echo "输入两段中文短文本，即可输出文本间的语义相似度。帮助快速实现推荐、检索、排序等应用";}
+            ?>
+        </span></h1>
+    <div align="center" style="margin-top: 3%;">
         <form enctype="multipart/form-data" method="post" action="face_detect.php" id="myform">
             <div class="am-form-group am-form-file">
-
-
                 <!--    <input type="text" value="0" name="tip">-->
             </div>
             <!--        <button type="submit" class="am-btn am-btn-sm">提交</button>-->
         </form>
     </div>
-
-
         <?php
         $text1 = '';$text2='';
         if(!empty($_POST['text1'])){
@@ -56,17 +65,12 @@
             $function = new rain_function();
             $text1 = $function->str_handling($text1);
             $text2 = $function->str_handling($text2);
-            $result = $function->language($text1,$text2,1);
+            $result = $function->language($text1,$text2,$type);
 //    var_dump($result);
             ?>
             <div align="center" style="width: 50%;margin: auto;">
                 <table class="am-table am-table-bordered am-table-centered">
-                    <thead>
-                    <tr class="am-danger">
-                        <th width="23%">相似指数</th>
-                        <th><?php echo $result['score'];?></th>
-                    </tr>
-                    </thead>
+                    <thead><tr class="am-danger"><th width="23%">相似指数</th><th><?php echo $result['score'];?></th></tr></thead>
                 </table>
             </div>
             <?php
@@ -74,23 +78,37 @@
             ?> <?php
         }
         ?>
+            <form class="am-form" method="post" action="text_similarity.php?type=<?php echo $type;?>" id="myform"><fieldset>
 
-
-            <form class="am-form" method="post" action="text_similarity.php" id="myform"><fieldset>
-            <div style="width: 100%;margin-bottom: 25%;">
-            <div align="center" style="width: 45%;float: left;margin-left: 2%;margin-right: 1%;">
-                <textarea class="" name="text1" rows="18" id="doc-ta-1"><?php echo $text1;?></textarea>
-            </div>
-            <div align="center" style="width: 45%;float: right;margin-right: 2%;margin-left: 1%;">
-                <textarea class="" name="text2" rows="18" id="doc-ta-2"><?php echo $text2;?></textarea>
-            </div>
+                <?php
+                if ($type==4){
+                    ?>
+                    <div style="width: 100%;margin-bottom: 16%;margin-top: 5%;">
+                    <div align="center" style="width: 35%;float: left;margin-left: 12%;margin-right: 1%;">
+                        <textarea class="" name="text1" rows="1" id="doc-ta-1"><?php echo $text1;?></textarea>
+                    </div>
+                    <div align="center" style="width: 35%;float: right;margin-right: 12%;margin-left: 1%;">
+                        <textarea class="" name="text2" rows="1" id="doc-ta-2"><?php echo $text2;?></textarea>
+                    </div>
+                    <?php
+                } else{
+                    ?><div style="width: 100%;margin-bottom: 25%;">
+                    <div align="center" style="width: 35%;float: left;margin-left: 12%;margin-right: 1%;">
+                        <textarea class="" name="text1" rows="12" id="doc-ta-1"><?php echo $text1;?></textarea>
+                    </div>
+                    <div align="center" style="width: 35%;float: right;margin-right: 12%;margin-left: 1%;">
+                        <textarea class="" name="text2" rows="12" id="doc-ta-2"><?php echo $text2;?></textarea>
+                    </div>
+                    <?php
+                }
+                ?>
 
            </div>
-
-                    <div style="width: 40%;margin: auto;">
+                    <div style="width: 40%;margin: auto;margin-top: -8%;">
                         <p><button type="submit" class="am-btn am-btn-secondary am-btn-block">提交</button></p>
                     </div>
         </fieldset></form>
+
 
 </main>
 <script src="public/js/jquery-1.11.0.min.js" type="text/javascript"></script>

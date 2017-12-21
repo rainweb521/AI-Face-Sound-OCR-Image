@@ -40,9 +40,7 @@
     }
     if ($type==2){echo "植物";} elseif ($type==3){echo "车辆";}elseif ($type==4){echo "Logo";}else{echo "动物";}
 
-        ?>
-
-    识别功能</h1>
+        ?>识别功能</h1>
 <div align="center" style="margin-top: 5%;">
     <form enctype="multipart/form-data" method="post" action="image_identification.php?type=<?php echo $type;?>" id="myform">
 <div class="am-form-group am-form-file">
