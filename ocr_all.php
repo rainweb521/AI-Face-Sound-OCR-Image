@@ -48,8 +48,9 @@
     </form>
 
 </div>
-<?php
 
+<?php
+//echo $_SERVER["REQUEST_URI"];
 if(!empty($_FILES['image'])){
     $file = $_FILES['image'];
 //    echo "321342314123";
@@ -58,6 +59,9 @@ if(!empty($_FILES['image'])){
     require_once 'config/rain_function.php';
     $function = new rain_function();
     $image_src = $function->upload_file($file);
+//    echo $image_src;exit();
+    if ($image_src=='0'){?> <h1 align='center' style='color: red;font-size: 50px;'>上传文件格式不对！</h1>
+    <?php }else{
     $result = $function->ocr_recognition($image_src);
 //    var_dump($result);
     ?>
@@ -102,7 +106,7 @@ if(!empty($_FILES['image'])){
     </div>
 
     <?php
-}else{
+}}else{
     ?> <?php
 }
 ?>

@@ -11,6 +11,7 @@ require_once 'AipImageClassify.php';
 require_once 'AipNlp.php';
 require_once 'AipSpeech.php';
 require_once 'database.php';
+require_once 'image.php';
 class rain_function{
     // 人脸识别的 ID ，Key
     private $Face_APP_ID = '10498320';
@@ -236,14 +237,13 @@ class rain_function{
         if ($_SERVER['REQUEST_METHOD'] == 'POST') { //判断提交方式是否为POST
             if (!is_uploaded_file($file['tmp_name'])) { //判断上传文件是否存在
 //            return '文件不存在！';
-                return '';
+                return '0';
             }
 //        if ($file['size'] > $max_size) {  //判断文件大小是否大于500000字节
 //            return '上传文件太大！';
 //        }
             if (!in_array($file['type'], $arrType)) {  //判断图片文件的格式
-//            return '上传文件格式不对！';
-                return '';
+                return '0';
             }
             if (!file_exists($upfile)) {  // 判断存放文件目录是否存在
                 mkdir($upfile, 0777, true);
@@ -259,17 +259,25 @@ class rain_function{
             $picName = $upfile . "/rain" . $fname . '.' . $fileinfo['extension'];
             if (file_exists($picName)) {
 //            return '同文件名已存在！';
-                return '';
+                return '0';
             }
             if (!move_uploaded_file($file['tmp_name'], $picName)) {
 //            return '移动文件出错！';
-                return '';
+                return '0';
             } else {
 //                echo $picName."<br>";
 //                echo "<font color='#FF0000'>图片文件上传成功！</font><br/>";
 //                echo "<font color='#0000FF'>图片大小：$img</font><br/>";
 //                echo "图片预览：<br><div style='border:#F00 1px solid; width:200px;height:200px'>
 //                    <img src=\"".$picName."\" width=200px height=200px>".$fname."</div>";
+                $image = new Image($picName);
+//                $image->percent = 0.5;
+//                $image->openImage();
+//                $image->thumpImage();
+//                $image->showImage();
+//                $picName = './public/image' . "/rain" . $fname . '.' . $file['type'];
+//                $image->saveImage($fname);
+                $image->image_png_size_add($picName,$picName);
                 return $picName;
 
             }

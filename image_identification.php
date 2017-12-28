@@ -66,6 +66,8 @@ if(!empty($_FILES['image'])){
     require_once 'config/rain_function.php';
     $function = new rain_function();
     $image_src = $function->upload_file($file);
+if ($image_src=='0'){?> <h1 align='center' style='color: red;font-size: 50px;'>上传文件格式不对！</h1>
+<?php }else{
     $result = $function->image_identification($image_src,$type);
 //    var_dump($result);
     ?>
@@ -130,7 +132,7 @@ if(!empty($_FILES['image'])){
     </div>
 
     <?php
-}else{
+}}else{
     ?> <?php
 }
 ?>

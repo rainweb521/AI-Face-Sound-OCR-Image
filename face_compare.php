@@ -64,6 +64,8 @@ if(!empty($_FILES['image1'])){
     $function = new rain_function();
     $image_src1 = $function->upload_file($file1);
     $image_src2 = $function->upload_file($file2);
+    if ($image_src1=='0'||$image_src2=='0'){?> <h1 align='center' style='color: red;font-size: 50px;'>上传文件格式不对！</h1>
+    <?php }else{
     $result = $function->face($image_src1,$image_src2,1);
 //    var_dump($result);
     ?>
@@ -88,7 +90,7 @@ if(!empty($_FILES['image1'])){
     </div>
 
     <?php
-}else{
+}}else{
     ?> <?php
 }
 ?>
