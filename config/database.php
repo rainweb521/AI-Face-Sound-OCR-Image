@@ -6,16 +6,11 @@
  * Time: 10:16
  */
 class database{
-    private $face1 = 1000;
-    private $face2 = 1000;
-    private $sound = 1000;
-    private $ocr = 400;
-    private $image1 = 400;
-    private $image2 = 400;
-    private $image3 = 400;
-    private $image4 = 400;
-    private $text1 = 2000;
-    private $text2 = 2000;
+    private $face = 2000;  /** @var int 人脸识别处理都是 2000次 */
+    private $sound = 2000;  /** @var int 语音合成是 2000次 */
+    private $ocr = 400;    /** @var int 文本识别也是 400次 */
+    private $image = 400;  /** @var int 图片识别统一是400 次 */
+    private $text = 5000; /** @var int 文本识别同一都是5000次 */
     public function conn_mysql(){   //连接数据库函数
         $con = mysqli_connect("localhost","root","root","test");//数据库用户名和密码
         mysqli_query($con,"set names utf8;");
@@ -68,6 +63,47 @@ class database{
         $con = $this->conn_mysql();  //连接mysql
         $result = mysqli_query($con,'DELETE FROM rain_ai WHERE id="'.$s_id.'"');
         $this->close_mysql($con);   //释放连接
+    }
+
+    /**
+     * 用于建立新的使用次数记录
+     */
+    public function create_UseNum(){
+        $date = date('Y-m-d');
+        $state = 1;
+        $con = $this->conn_mysql();  //连接mysql
+        $return = mysqli_query($con,"INSERT INTO ai_use VALUES(null,'{$state}','{$date}','{$this->face}','{$this->face}',
+            '{$this->sound}','{$this->ocr}','{$this->image}','{$this->image}','{$this->image}','{$this->image}','{$this->text}'
+            ,'{$this->text}','{$this->text}','{$this->text}','{$this->text}','{$this->text}','{$this->text}','{$this->text}')");
+        $this->close_mysql($con);   //释放连接
+    }
+    /** 用于查询每个功能所剩余的次数
+     * @param $field
+     * @return array|int|null
+     */
+    public function get_UseNum($field){
+        $date = date('Y-m-d');
+        $con = $this->conn_mysql();  //连接mysql
+        $result = mysqli_query($con,'SELECT '.$field.' FROM ai_use WHERE date="'.$date.'"');
+        $row = mysqli_fetch_array($result);
+        if (empty($row[0])){
+            $this->create_UseNum();
+            $result = mysqli_query($con,'SELECT '.$field.' FROM ai_use WHERE date="'.$date.'"');
+            $row = mysqli_fetch_array($result);
+        }
+        $this->close_mysql($con);   //释放连接
+        return $row[0];
+    }
+    public function reduce_UseNum($field){
+        $date = date('Y-m-d');
+        $con = $this->conn_mysql();  //连接mysql
+        $result = mysqli_query($con,'SELECT '.$field.' FROM ai_use WHERE date="'.$date.'"');
+        $row = mysqli_fetch_array($result);
+        $row = $row[0] - 1;
+//        var_dump($row);
+        $result = mysqli_query($con,'update ai_use set '.$field.'="'.$row.'" where date="'.$date.'"');
+        $this->close_mysql($con);   //释放连接
+//        var_dump($result);
     }
     public function close_mysql($con){  //释放连接的函数
         mysqli_close($con);

@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/public/assets/css/admin.css">
     <link rel="stylesheet" href="/public/assets/css/app.css">
     <link rel="stylesheet" href="/public/assets/css/amazeui.flat.min.css">
-    <script src="/public/assets/js/amazeui.ie8polyfill.min.js"></script>
-    <script src="/public/assets/js/amazeui.min.js"></script>
-    <script src="/public/assets/js/amazeui.widgets.helper.min.js"></script>
-    <script src="/public/assets/js/app.js"></script>
-    <script src="/public/assets/js/handlebars.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.ie8polyfill.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.widgets.helper.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/app.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/handlebars.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="public/css/reset.css" />
     <link rel="stylesheet" href="public/css/style.css">
@@ -29,7 +29,11 @@
 <!--<div align="left" style="margin-top: 2%;margin-left: 2%;font-size: 30px;">-->
 <!--    <button class="am-btn am-btn-default am-btn-xl" onclick="location.href='index.html';">返回</button>-->
 <!--</div>-->
-<?php require ('header.php');?>
+<?php require ('header.php');
+require_once 'config/rain_function.php';
+$function = new rain_function();
+$use_num = $function->use_num('1');
+?>
 <main class="cd-main-content">
     <h1 align="center" style="margin-top: 3%;margin-bottom: -5%;font-size: 30px;">自然语言处理---
         <?php
@@ -44,16 +48,23 @@
             <?php
             if ($type==4){echo "依托全网海量优质数据和深度神经网络技术，通过词语向量化来计算两个词之间的相似度";}
             else{echo "输入两段中文短文本，即可输出文本间的语义相似度。帮助快速实现推荐、检索、排序等应用";}
+            if($type!=4){$type = 3;}
+            $use_num = $function->use_num('6'.$type);
             ?>
-        </span></h1>
-    <div align="center" style="margin-top: 3%;">
+        </span><br>
+        <span style="font-size: 20px;" id="use_num">（今日剩余使用次数<?php echo $use_num;?>）</span>
+    </h1>
+    <?php if ($use_num==0){?>
+        <h1 align="center" style="margin-top: 8%;font-size: 35px;">今日次数以及使用完毕，请明日再来</h1>
+    <?php }else{?>
+    <div align="center" style="margin-top: 5%;">
         <form enctype="multipart/form-data" method="post" action="face_detect.php" id="myform">
             <div class="am-form-group am-form-file">
                 <!--    <input type="text" value="0" name="tip">-->
             </div>
             <!--        <button type="submit" class="am-btn am-btn-sm">提交</button>-->
         </form>
-    </div>
+    </div><?php }?>
         <?php
         $text1 = '';$text2='';
         if(!empty($_POST['text1'])){
@@ -62,13 +73,13 @@
 //    echo "321342314123";
 //    $data['g_addtime'] = date("Y-m-d");
 //        onchange="document.getElementById('myform').submit();"                                    echo date("Y-m-d");
-            require_once 'config/rain_function.php';
-            $function = new rain_function();
             $text1 = $function->str_handling($text1);
             $text2 = $function->str_handling($text2);
             $result = $function->language($text1,$text2,$type);
+            $use_num = $function->use_num('6'.$type);
 //    var_dump($result);
             ?>
+            <script>document.getElementById('use_num').innerHTML = '（今日剩余使用次数<?php echo $use_num;?>）';</script>
             <div align="center" style="width: 50%;margin: auto;">
                 <table class="am-table am-table-bordered am-table-centered">
                     <thead><tr class="am-danger"><th width="23%">相似指数</th><th><?php echo $result['score'];?></th></tr></thead>
@@ -112,8 +123,8 @@
 
 
 </main>
-<script src="public/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-<script src="public/js/modernizr-custom.js"></script>
-<script src="public/js/main.js"></script> <!-- Resource jQuery -->
+<script src="http://cos.rain1024.com/blog/static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="http://cos.rain1024.com/blog/static/js/modernizr-custom.js"></script>
+<script src="http://cos.rain1024.com/blog/static/js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>

@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/public/assets/css/admin.css">
     <link rel="stylesheet" href="/public/assets/css/app.css">
     <link rel="stylesheet" href="/public/assets/css/amazeui.flat.min.css">
-    <script src="/public/assets/js/amazeui.ie8polyfill.min.js"></script>
-    <script src="/public/assets/js/amazeui.min.js"></script>
-    <script src="/public/assets/js/amazeui.widgets.helper.min.js"></script>
-    <script src="/public/assets/js/app.js"></script>
-    <script src="/public/assets/js/handlebars.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.ie8polyfill.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.widgets.helper.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/app.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/handlebars.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="public/css/reset.css" />
     <link rel="stylesheet" href="public/css/style.css">
@@ -29,7 +29,10 @@
 <!--<div align="left" style="margin-top: 2%;margin-left: 2%;font-size: 30px;">-->
 <!--    <button class="am-btn am-btn-default am-btn-xl" onclick="location.href='index.html';">返回</button>-->
 <!--</div>-->
-<?php require ('header.php');?>
+<?php require ('header.php');
+require_once 'config/rain_function.php';
+$function = new rain_function();
+?>
 <main class="cd-main-content">
     <h1 align="center" style="margin-top: 3%;margin-bottom: -2%;font-size: 30px;">自然语言处理---
         <?php
@@ -46,9 +49,15 @@
             else if ($type==6){echo "自动分析用户评论，输出评论观点与情感极性 ";}
             else if ($type==7){echo "输入中文句子，即可获得句子的通顺程度 ";}
             else{echo "对含主观信息的文本进行情感极性判断，为口碑分析、话题监控、舆情分析等应用提供基础技术支持";}
+            if($type>7||$type<2){$type = 1;}
+            $use_num = $function->use_num('6'.$type);
             ?>
-        </span></h1>
-
+        </span><br>
+        <span style="font-size: 20px;" id="use_num">（今日剩余使用次数<?php echo $use_num;?>）</span>
+    </h1>
+    <?php if ($use_num==0){?>
+        <h1 align="center" style="margin-top: 8%;font-size: 35px;">今日次数以及使用完毕，请明日再来</h1>
+    <?php }else{?>
     <div align="center" style="margin-top: 3%;">
         <form enctype="multipart/form-data" method="post" action="face_detect.php" id="myform">
             <div class="am-form-group am-form-file">
@@ -71,7 +80,7 @@
                         <p><button type="submit" class="am-btn am-btn-secondary am-btn-block">提交</button></p>
                     </fieldset></form>
             </div>
-        </div>
+        </div><?php }?>
     <?php
 
     if(!empty($_POST['text'])){
@@ -80,13 +89,13 @@
     //    echo "321342314123";
     //    $data['g_addtime'] = date("Y-m-d");
     //        onchange="document.getElementById('myform').submit();"                                    echo date("Y-m-d");
-    require_once 'config/rain_function.php';
-    $function = new rain_function();
     $text = $function->str_handling($text);
     $result = $function->language($text, '', $type);
-    //    var_dump($result);
-    ?>
-        <script>document.getElementById('doc-ta-1').value = '<?php echo $text;?>';</script>
+        $use_num = $function->use_num('6'.$type);
+//    var_dump($result);
+        ?>
+        <script>document.getElementById('use_num').innerHTML = '（今日剩余使用次数<?php echo $use_num;?>）';
+        document.getElementById('doc-ta-1').value = '<?php echo $text;?>';</script>
         <div align="center" style="width: 40%;height:1000px; float: left;margin-bottom: 10%;">
             <?php
             if ($type == 2) {
@@ -315,9 +324,9 @@
     ?>
         </div>
 </main>
-<script src="public/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-<script src="public/js/modernizr-custom.js"></script>
-<script src="public/js/main.js"></script> <!-- Resource jQuery -->
+<script src="http://cos.rain1024.com/blog/static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="http://cos.rain1024.com/blog/static/js/modernizr-custom.js"></script>
+<script src="http://cos.rain1024.com/blog/static/js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
 

@@ -33,6 +33,46 @@ class rain_function{
     private $Text_APP_ID = '10498297';
     private $Text_API_KEY = '9CGqp1FGGgVGvCirCv0EaEO0';
     private $Text_SECRET_KEY = 'GZ4k5obwgodxX1byiLsXdxXfllSWz2D8';
+
+    public function use_num($type){
+        /** 直到最后的else 输出0，为不能使用 */
+        /**
+         * 1. 人脸检测 2. 人脸识别 3. 语音合成 4. 文本识别 5. 图片识别51-54 6.自然语言处理61-67
+         */
+        $database = new database();
+        if ($type==1){
+            $num = $database->get_UseNum('face1');
+        }elseif ($type==2){
+            $num = $database->get_UseNum('face2');
+        }elseif ($type==3){
+            $num = $database->get_UseNum('sound');
+        }elseif ($type==4){
+            $num = $database->get_UseNum('ocr');
+        }elseif ($type==51){
+            $num = $database->get_UseNum('image1');
+        }elseif ($type==52){
+            $num = $database->get_UseNum('image2');
+        }elseif ($type==53){
+            $num = $database->get_UseNum('image3');
+        }elseif ($type==54){
+            $num = $database->get_UseNum('image4');
+        }elseif ($type==61){
+            $num = $database->get_UseNum('text1');
+        }elseif ($type==62){
+            $num = $database->get_UseNum('text2');
+        }elseif ($type==63){
+            $num = $database->get_UseNum('text3');
+        }elseif ($type==64){
+            $num = $database->get_UseNum('text4');
+        }elseif ($type==66){
+            $num = $database->get_UseNum('text6');
+        }elseif ($type==67){
+            $num = $database->get_UseNum('text7');
+        }else{
+            $num = 0;
+        }
+        return $num;
+    }
     /**
      * file_get_contens函数，用作所有图片的处理，应该是返回图片内容，还有URL的请求发起
      */
@@ -60,7 +100,7 @@ class rain_function{
      */
     function face($image_src,$image_src2=null,$type){
         $client = new AipFace($this->Face_APP_ID, $this->Face_API_KEY, $this->Face_SECRET_KEY);
-
+        $database = new database();
         if ($type==1){
             // 调用人脸两两比对接口
             $result = $client->match(array(
@@ -68,6 +108,7 @@ class rain_function{
                 file_get_contents($image_src2),
             ));
             $log = '人脸对比';
+            $database->reduce_UseNum('face2');
         }else{
             // 调用人脸检测
             $option = array(
@@ -77,13 +118,13 @@ class rain_function{
             );
             $result = $client->detect($this->file_get_contents($image_src),$option);
             $log = '人脸检测';
+            $database->reduce_UseNum('face1');
         }
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = '.'.$image_src;
         $data['image2'] = '.'.$image_src2;
         $data['status'] = $log;
         $data['state'] = 1;
-        $database = new database();
         $database->ai_InsertInfo($data);
         return $result;
     }
@@ -92,15 +133,16 @@ class rain_function{
      */
     function ocr_recognition($image_src){
         $client = new AipOcr($this->Ocr_APP_ID, $this->Ocr_API_KEY, $this->Ocr_SECRET_KEY);
+        $database = new database();
         // 调用通用文字识别接口
         $result = $client->basicGeneral($this->file_get_contents($image_src));
         $log = '通用文字识别';
+        $database->reduce_UseNum('ocr');
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = '.'.$image_src;
         $data['image2'] = '.';
         $data['status'] = $log;
         $data['state'] = 1;
-        $database = new database();
         $database->ai_InsertInfo($data);
         return $result;
         // 如果图片是url 调用示例如下
@@ -111,29 +153,33 @@ class rain_function{
      */
     function image_identification($image_src,$type){
         $client = new AipImageClassify($this->Image_APP_ID, $this->Image_API_KEY, $this->Image_SECRET_KEY);
+        $database = new database();
         if ($type==2){
             // 图像识别函数--植物识别
             $result = $client->plantDetect($this->file_get_contents($image_src));
             $log = '植物识别';
+            $database->reduce_UseNum('image2');
         }elseif ($type==3){
             // 图像识别函数--车辆识别
             $result = $client->carDetect($this->file_get_contents($image_src));
             $log = '车辆识别';
+            $database->reduce_UseNum('image3');
         }elseif ($type==4){
             // 图像识别函数--Logo识别
             $result = $client->logoSearch($this->file_get_contents($image_src));
             $log = 'Logo识别';
+            $database->reduce_UseNum('image4');
         }else{
             // 图像识别函数--动物识别
             $result = $client->animalDetect($this->file_get_contents($image_src));
             $log = '动物识别';
+            $database->reduce_UseNum('image1');
         }
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = '.'.$image_src;
         $data['image2'] = '.';
         $data['status'] = $log;
         $data['state'] = 1;
-        $database = new database();
         $database->ai_InsertInfo($data);
         return $result;
         // 如果图片是url 调用示例如下
@@ -152,22 +198,27 @@ class rain_function{
      */
     function language($text1, $text2,$type){
         $client = new AipNlp($this->Text_APP_ID, $this->Text_API_KEY, $this->Text_SECRET_KEY);
+        $database = new database();
         if ($type==3){
             // 调用短文本相似度对比接口
             $result = $client->simnet($text1,$text2);
             $log = '短文本相似度对比';
+            $database->reduce_UseNum('text3');
         }else if ($type==4){
             // 调用 词义相似度对比接口
             $result = $client->wordSimEmbedding($text1,$text2);
             $log = '词义相似度对比';
+            $database->reduce_UseNum('text4');
         }else if ($type==2){
             // 调用 词法分析接口
             $result = $client->lexer($text1);
             $log = '词法分析';
+            $database->reduce_UseNum('text2');
         }else if ($type==7){
             // 调用中文DNN语言模型接口
             $result = $client->dnnlm($text1);
             $log = '中文DNN语言模型';
+            $database->reduce_UseNum('text7');
         }else if ($type==6){
             /** 因为参数有13个，所以需要一一遍历出来 $option */
             for($i=1;$i<=13;$i++){
@@ -180,18 +231,19 @@ class rain_function{
                 }
             }
             $log = '评论观点抽取';
+            $database->reduce_UseNum('text6');
         }else{
 //            type = 1
             // 调用情感倾向分析接口
             $result = $client->sentimentClassify($text1);
             $log = '情感倾向分析';
+            $database->reduce_UseNum('text1');
         }
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = $text1;
         $data['image2'] = $text2;
         $data['status'] = $log;
         $data['state'] = 2;
-        $database = new database();
         $database->ai_InsertInfo($data);
         return $result;
     }
@@ -200,6 +252,7 @@ class rain_function{
      */
     function sound($text,$per,$spd,$pit){
         $client = new AipSpeech($this->Sound_APP_ID, $this->Sound_API_KEY, $this->Sound_SECRET_KEY);
+        $database = new database();
         // 调用语音合成接口
         $result = $client->synthesis($text, 'zh', 1, array(
             'vol' => 5,'per' => $per,'spd' => $spd,'pit' => $pit,
@@ -213,13 +266,12 @@ class rain_function{
             file_put_contents($file, $result);
         }
         $log = '语音合成';
-
+        $database->reduce_UseNum('sound');
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = $text;
         $data['image2'] = '.'.$file;
         $data['status'] = $log;
         $data['state'] = 3;
-        $database = new database();
         $database->ai_InsertInfo($data);
         return $file;
         // 如果图片是url 调用示例如下

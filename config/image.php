@@ -69,6 +69,11 @@ v1.0
            $funcs($this->image,$name.'.'.$this->imageinfo['type']);
 
        }
+       /**
+        * desription 压缩图片
+        * @param sting $imgsrc 图片路径
+        * @param string $imgdst 压缩后保存路径
+        */
        function image_png_size_add($imgsrc,$imgdst){
            list($width,$height,$type)=getimagesize($imgsrc);
            $new_width = ($width)*0.7;

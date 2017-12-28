@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/public/assets/css/admin.css">
     <link rel="stylesheet" href="/public/assets/css/app.css">
     <link rel="stylesheet" href="/public/assets/css/amazeui.flat.min.css">
-    <script src="/public/assets/js/amazeui.ie8polyfill.min.js"></script>
-    <script src="/public/assets/js/amazeui.min.js"></script>
-    <script src="/public/assets/js/amazeui.widgets.helper.min.js"></script>
-    <script src="/public/assets/js/app.js"></script>
-    <script src="/public/assets/js/handlebars.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.ie8polyfill.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.widgets.helper.min.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/app.js"></script>
+    <script src="http://cos.rain1024.com/blog/static/assets/js/handlebars.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="public/css/reset.css" />
     <link rel="stylesheet" href="public/css/style.css">
@@ -56,9 +56,9 @@
         <button type="button" class="am-btn am-btn-default am-btn-block">更多功能正在开发....</button>
     </div>
 </main>
-<script src="public/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-<script src="public/js/modernizr-custom.js"></script>
-<script src="public/js/main.js"></script> <!-- Resource jQuery -->
+<script src="http://cos.rain1024.com/blog/static/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="http://cos.rain1024.com/blog/static/js/modernizr-custom.js"></script>
+<script src="http://cos.rain1024.com/blog/static/js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
 
