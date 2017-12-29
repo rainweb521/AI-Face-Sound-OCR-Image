@@ -31,6 +31,7 @@ if(empty($_GET['rain_key'])){
     echo "<script>location.href='../index.php';</script>";
 }else{
     $rain_key = $_GET['rain_key'];
+    $rain_key = htmlspecialchars($rain_key);
     if ($rain_key!='0zhBZwsuWM706HJQ6x3Y'){
         echo "<script>location.href='../index.php';</script>";
     }
@@ -42,6 +43,7 @@ if(empty($_GET['rain_key'])){
     <table class="am-table am-table-bordered am-table-radius am-table-striped">
         <thead>
         <tr>
+            <th>ID</th>
             <th>访问者地址</th>
             <th>时间</th>
             <th>类型</th>
@@ -59,11 +61,14 @@ if(empty($_GET['rain_key'])){
             $id = $_GET['id'];
             $databse->delete($id);
         }
-        $list = $databse->ListInfo();
+        if (empty($_GET['page'])){$page = 1;}
+        else{$page = $_GET['page'];}
+        if (!is_numeric($page)){$page = 1;}
+        $list = $databse->ListInfo($page_num=5,$page);
         while($line = (mysqli_fetch_array($list))){
         //var_dump($line[0]);echo "<br>";
         ?>
-        <tr>
+        <tr><td><?php echo $line['id'];?></td>
             <td><?php echo $line['address'];?></td>
             <td><?php echo $line['add_time'];?></td>
             <td><?php echo $line['status'];?></td>
@@ -87,6 +92,17 @@ if(empty($_GET['rain_key'])){
         <?php }?>
         </tbody>
     </table>
+        <div class="am-cf" style="margin-right: auto;">
+
+            <div class="am-fr">
+                <ul class="am-pagination tpl-pagination">
+                    <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=1">首页</a></li>
+                    <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=<?php echo $page-1;?>">上一页</a></li>
+                    <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=<?php echo $page+1;?>">下一页</a></li>
+                    <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=-">尾页</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </main>
 <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>

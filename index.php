@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI-人工智能</title>
+    <title>AI-人工智能-可进行人脸检测,人脸对比,语音合成,文字识别,动物识别,自然语言处理</title>
     <link rel="stylesheet" href="/public/assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="/public/assets/css/admin.css">
     <link rel="stylesheet" href="/public/assets/css/app.css">
@@ -12,6 +12,7 @@
     <script src="http://cos.rain1024.com/blog/static/assets/js/amazeui.widgets.helper.min.js"></script>
     <script src="http://cos.rain1024.com/blog/static/assets/js/app.js"></script>
     <script src="http://cos.rain1024.com/blog/static/assets/js/handlebars.min.js"></script>
+    <link rel="shortcut icon" href="/public/logo.ico" >
 
     <link rel="stylesheet" type="text/css" href="public/css/reset.css" />
     <link rel="stylesheet" href="public/css/style.css">
