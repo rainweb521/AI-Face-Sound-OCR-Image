@@ -35,11 +35,15 @@ if(empty($_GET['rain_key'])){
     if ($rain_key!='0zhBZwsuWM706HJQ6x3Y'){
         echo "<script>location.href='../index.php';</script>";
     }
+    require ('../config/database.php');
+    $databse = new database();
+    $all_page_num = $databse->get_AllPageNum(5);
 }
 ?>
 <main class="cd-main-content">
     <a href="rain_manage.php?rain_key=<?php echo $rain_key;?>"><h1 align="center" style="margin-top: -1%;margin-bottom: 2%;font-size: 30px;">后台访问记录</h1></a>
     <div style="width:80%;margin: auto;">
+        <span style="font-size: 18px;">共有<?php echo $all_page_num;?>页</span>
     <table class="am-table am-table-bordered am-table-radius am-table-striped">
         <thead>
         <tr>
@@ -54,8 +58,7 @@ if(empty($_GET['rain_key'])){
         </thead>
         <tbody>
         <?php
-        require ('../config/database.php');
-        $databse = new database();
+
         if (!empty($_GET['type'])){
             $type = $_GET['type'];
             $id = $_GET['id'];
@@ -99,7 +102,7 @@ if(empty($_GET['rain_key'])){
                     <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=1">首页</a></li>
                     <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=<?php echo $page-1;?>">上一页</a></li>
                     <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=<?php echo $page+1;?>">下一页</a></li>
-                    <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=-">尾页</a></li>
+                    <li class="am-active"><a href="rain_manage.php?rain_key=<?php echo $rain_key;?>&page=<?php echo $all_page_num;?>">尾页</a></li>
                 </ul>
             </div>
         </div>

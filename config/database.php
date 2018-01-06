@@ -24,11 +24,28 @@ class database{
         $this->close_mysql($con);   //释放连接
         return mysqli_fetch_array($result);
     }
-
+    public function get_AllPageNum($page_num){
+        $con = $this->conn_mysql();  //连接mysql
+        $result = mysqli_query($con,'SELECT * FROM rain_ai '); //进行查询操作
+        $all_num = $result->num_rows;
+        if ($all_num%$page_num==0){
+            $all_page = $all_num/$page_num;
+        }else{
+            /**
+             *  这时候分页就会出现两种情况，总数大于，或者小于时，余数都不为0
+             */
+            $all_page = (intval($all_num/$page_num)) ;
+            if ($all_num>$all_page*$page_num){
+                $all_page = $all_page +1;
+            }
+        }
+        $this->close_mysql($con);   //释放连接
+        return ($all_page);
+    }
     /** 后台显示数据的获取
      * @return bool|mysqli_result
      */
-    public function ListInfo($page_num,$page){
+    public function ListInfo($page_num, $page){
         $con = $this->conn_mysql();  //连接mysql
         $result = mysqli_query($con,'SELECT * FROM rain_ai '); //进行查询操作
         $all_num = $result->num_rows;
