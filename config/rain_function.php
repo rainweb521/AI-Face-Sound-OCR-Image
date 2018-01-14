@@ -131,13 +131,19 @@ class rain_function{
     /**
      *  文字识别函数
      */
-    function ocr_recognition($image_src){
+    function ocr_recognition($image_src,$type){
         $client = new AipOcr($this->Ocr_APP_ID, $this->Ocr_API_KEY, $this->Ocr_SECRET_KEY);
         $database = new database();
         // 调用通用文字识别接口
-        $result = $client->basicGeneral($this->file_get_contents($image_src));
-        $log = '通用文字识别';
-        $database->reduce_UseNum('ocr');
+        if ($type==2){
+            $result = $client->vehicleLicense($this->file_get_contents($image_src));
+            $log = '驾驶证识别';
+//            $database->reduce_UseNum('ocr');
+        }else{
+            $result = $client->basicGeneral($this->file_get_contents($image_src));
+            $log = '通用文字识别';
+            $database->reduce_UseNum('ocr');
+        }
         $data['ip'] = $_SERVER['REMOTE_ADDR'];
         $data['image1'] = '.'.$image_src;
         $data['image2'] = '.';

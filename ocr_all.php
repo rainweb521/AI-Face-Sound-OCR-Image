@@ -68,7 +68,7 @@ if(!empty($_FILES['image'])){
 //    echo $image_src;exit();
     if ($image_src=='0'){?> <h1 align='center' style='color: red;font-size: 50px;'>上传文件格式不对！</h1>
     <?php }else{
-    $result = $function->ocr_recognition($image_src);
+    $result = $function->ocr_recognition($image_src,1);
     $use_num = $function->use_num('4');
     //    var_dump($result);
     ?>
@@ -101,7 +101,7 @@ if(!empty($_FILES['image'])){
 <!--                        <tr align="left">-->
 <!--                            <td>颜值分数</td>-->
 <!--                            <td align="left">-->
-                                <?php echo $line['words'];?><br><br>
+                                <?php echo $line;?><br><br>
 <!--                            </td>-->
 <!--                        </tr>-->
 
