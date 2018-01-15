@@ -4,7 +4,7 @@
     <nav class="main-nav">
         <ul>
             <li class="has-dropdown gallery" data-content="about3">
-                <a href="index.php">首页</a>
+                <a href="application/index/view/index/index.php">首页</a>
             </li>
             <li class="has-dropdown gallery" data-content="about">
                 <a href="#0">人脸识别</a>
@@ -28,7 +28,7 @@
         <div class="dropdown-list">
             <ul>
                 <li id="about3" class="dropdown links">
-                    <a href="index.php" class="label">首页</a>
+                    <a href="application/index/view/index/index.php" class="label">首页</a>
                 </li>
                 <li id="about" class="dropdown links">
                     <a href="#0" class="label">人脸识别</a>

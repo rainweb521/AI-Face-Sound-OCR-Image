@@ -149,20 +149,6 @@ class database{
      * @param $ip IP地址
      */
     private function ip_select($ip){
-//        $ip = '27.189.201.108';
-        $datatype = 'txt';
-        $url = 'http://api.ip138.com/query/?ip='.$ip.'&datatype='.$datatype;
-        $header = array('token:d5dd821801f23acef2a763e49d3c492f');
-//        echo getData($url,$header);
-//        function getData($url,$header){
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL,$url);
-        curl_setopt($ch,CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_1);
-        curl_setopt($ch,CURLOPT_HTTPHEADER,$header);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,3);
-        $handles = curl_exec($ch);
-        curl_close($ch);
-        return $handles;
+ 
     }
 }

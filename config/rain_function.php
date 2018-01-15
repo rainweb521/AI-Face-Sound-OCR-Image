@@ -14,25 +14,25 @@ require_once 'database.php';
 require_once 'image.php';
 class rain_function{
     // 人脸识别的 ID ，Key
-    private $Face_APP_ID = '10498320';
-    private $Face_API_KEY = '0N17xebL0uwNhAogL2S0lGFw';
-    private $Face_SECRET_KEY = 'Qja3oVTvbYXEoN0ZB1U4qmgs7Ge51Zqp ';
+    private $Face_APP_ID = '';
+    private $Face_API_KEY = '';
+    private $Face_SECRET_KEY = ' ';
     // 语音识别，合成的 ID，Key
-    private $Sound_APP_ID = '10495881';
-    private $Sound_API_KEY = '1F7P2iQ8USTNtA0wNxG0vtGv';
-    private $Sound_SECRET_KEY = 'LzTHrMKGG3uUIf1rxXFzNL17vGDByN8V ';
+    private $Sound_APP_ID = '';
+    private $Sound_API_KEY = '';
+    private $Sound_SECRET_KEY = ' ';
     // 文字识别，合成的 ID，Key
-    private $Ocr_APP_ID = '9855248';
-    private $Ocr_API_KEY = '6gj5yyp1da7zAp4ylycMGA5t';
-    private $Ocr_SECRET_KEY = 'rjBXwRG2pjc0uWacIoGaouwFf67m4iYC ';
+    private $Ocr_APP_ID = '';
+    private $Ocr_API_KEY = '';
+    private $Ocr_SECRET_KEY = ' ';
     // 图像识别，合成的 ID，Key
-    private $Image_APP_ID = '10523702';
-    private $Image_API_KEY = 'F0z4px9AIsjHreaU4Z84rxsn';
-    private $Image_SECRET_KEY = 'frQBdMwrWjsR3jgnqXGC4bPOMfNLErMy';
+    private $Image_APP_ID = '';
+    private $Image_API_KEY = '';
+    private $Image_SECRET_KEY = '';
     // 自然语言处理，合成的 ID，Key
-    private $Text_APP_ID = '10498297';
-    private $Text_API_KEY = '9CGqp1FGGgVGvCirCv0EaEO0';
-    private $Text_SECRET_KEY = 'GZ4k5obwgodxX1byiLsXdxXfllSWz2D8';
+    private $Text_APP_ID = '';
+    private $Text_API_KEY = '';
+    private $Text_SECRET_KEY = '';
 
     public function use_num($type){
         /** 直到最后的else 输出0，为不能使用 */

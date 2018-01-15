@@ -101,7 +101,7 @@ if(!empty($_FILES['image'])){
 <!--                        <tr align="left">-->
 <!--                            <td>颜值分数</td>-->
 <!--                            <td align="left">-->
-                                <?php echo $line;?><br><br>
+                                <?php echo $line['words'];?><br><br>
 <!--                            </td>-->
 <!--                        </tr>-->
 
